@@ -1,0 +1,20 @@
+<p>Danh sach product</p>
+<router-outlet></router-outlet>
+<a routerLink="create">Create product</a>
+<table border="1px">
+  <tr>
+    <td>STT</td>
+    <td>Name </td>
+    <td>Price</td>
+    <td>Category</td>
+  </tr>
+  <tr *ngFor="let pro of listProduct ; index as i" >
+    <td>{{i+1}}</td>
+    <td>{{pro.name}}</td>
+    <td>{{pro.price}}</td>
+    <td>{{pro.category.name}}</td>
+    <td><a [routerLink]="['edit',pro.id]">Edit</a></td>
+<!--    <td><a [routerLink]="['delete-product',pro.id]">Delete</a></td>-->
+  </tr>
+</table>
+

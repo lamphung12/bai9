@@ -1,0 +1,11 @@
+<form [formGroup]="form" (submit)="edit(id)" >
+  <p>Name</p>
+  <input type="text" formControlName="name" class="form-control"><br>
+  <p>Price</p>
+  <input type="number" formControlName="price" class="form-control"><br>
+  <p>Category</p>
+  <select formControlName="categoryId" >
+    <option *ngFor="let c of listCategory" [value]="c.id">{{c.name}}</option>
+  </select>
+  <button>Cap nhat</button>
+</form>

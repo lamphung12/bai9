@@ -1,0 +1,16 @@
+<p>list-category works!</p>
+<h1>Danh sách Category</h1>
+<a routerLink="">Thêm danh muc mới</a>
+<table border="1px">
+  <tr>
+    <td>STT</td>
+    <td>Tên</td>
+  </tr>
+  <tr *ngFor="let c of category; index as i">
+    <td>{{i + 1}}</td>
+    <td>{{c.name}}</td>
+
+<!--    <td><a [routerLink]="['edit',clazz.id]">Edit</a></td>-->
+<!--    <td><button (click)="delete(clazz.id)">Delete</button></td>-->
+  </tr>
+</table>
