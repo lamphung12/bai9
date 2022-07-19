@@ -1,1 +1,9 @@
-<p>delete-product-be works!</p>
+<form [formGroup]="form" (submit)="delete(id)" >
+  <p>Name</p>
+  <input type="text" formControlName="name" class="form-control"><br>
+  <p>Price</p>
+  <input type="number" formControlName="price" class="form-control"><br>
+  <p>Category</p>
+  <input type="text" formControlName="categoryId">
+  <button>Xóa</button>
+</form>

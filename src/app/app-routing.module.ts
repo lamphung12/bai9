@@ -19,7 +19,7 @@ const routes: Routes = [
         component: EditProductBeComponent
       },
       {
-        path: 'delete',
+        path: 'delete/:id',
         component: DeleteProductBeComponent
       }
     ]
