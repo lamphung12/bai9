@@ -32,6 +32,9 @@ export class ProductBeService {
     return this.httpClient.delete<Product>(this.API + `/${id}`);
   }
 
+  searchByName(name:string) : Observable<Product[]> {
+    return this.httpClient.get<Product[]>(this.API + `/search-by-name?name=${name}`);
+  }
 
 
 }
