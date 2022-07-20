@@ -4,6 +4,7 @@ import {HttpClient} from "@angular/common/http";
 import {ProductBeService} from "../../service/product-be.service";
 import {CategoryService} from "../../service/category.service";
 import {Category} from "../../model/Category";
+import {error} from "@angular/compiler-cli/src/transformers/util";
 
 @Component({
   selector: 'app-navbar',
@@ -13,7 +14,9 @@ import {Category} from "../../model/Category";
 export class NavbarComponent implements OnInit {
   productForm: FormGroup= new FormGroup({
     name: new FormControl(''),
-    categoryId : new FormControl('')
+    categoryId : new FormControl(''),
+    from: new FormControl(''),
+    to: new FormControl('')
   })
 
   form = new FormGroup({
@@ -80,6 +83,27 @@ export class NavbarComponent implements OnInit {
       // this.router.navigate(['product-be'])
     },error=>{
       alert('Loi')
+    })
+  }
+  // searchByPrice() {
+  //   const from = this.productForm.value.from;
+  //   const to = this.productForm.value.to;
+  //   this.productBeService.getByPriceBetween(from, to).subscribe((data) => {
+  //     this.listProduct = data;
+  //     // this.router.navigate(['product-be'])
+  //   }), (error: any) => {
+  //     console.log(error)
+  //   }
+  // }
+
+  searchByPrice() {
+      const from = this.productForm.value.from;
+      const to = this.productForm.value.to;
+    this.productBeService.getByPriceBetween(from, to).subscribe((data) => {
+      console.log(data)
+      this.listProduct=data;
+    },error=>{
+      console.log(error)
     })
   }
 
