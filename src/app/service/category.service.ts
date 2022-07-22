@@ -9,14 +9,16 @@ import {Category} from "../model/Category";
 export class CategoryService {
   API_CA ='http://localhost:8080/api/categorys' ;
 
-  findAll(): Observable<Category[]>{
+  constructor(private httpClient: HttpClient) { }
+
+  findAll(): Observable<Category[]> {
     // @ts-ignore
     return this.httpClient.get(this.API_CA);
   }
-
-  save(category:Category): Observable<any> {
-    return this.httpClient.post(this.API_CA,category)
-  }
-
-  constructor(private httpClient: HttpClient) { }
+  //
+  // saveCategory(category): Observable<any> {
+  //   return this.httpClient.post(this.API_CA,category)
+  // }
+  //
+  // constructor(private httpClient: HttpClient) { }
 }

@@ -13,7 +13,8 @@ import {FormControl, FormGroup} from "@angular/forms";
 })
 export class ListProductBackendComponent implements OnInit {
   productForm: FormGroup= new FormGroup({
-    name: new FormControl('')
+    name: new FormControl(''),
+    categoryId : new FormControl('')
   })
 
 
@@ -52,7 +53,14 @@ export class ListProductBackendComponent implements OnInit {
     },error=>{
       console.log(error)
     })
+  }
 
+  searchByCategoryId() {
+    const id = this.productForm.value.categoryId;
+    this.productBeService.getByCategoryId(id).subscribe(data => {
+      this.listProduct = data;
+      console.log(data);
+    });
   }
 
 }

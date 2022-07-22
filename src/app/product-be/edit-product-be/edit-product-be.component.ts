@@ -4,6 +4,8 @@ import {ProductBeService} from "../../service/product-be.service";
 import {ActivatedRoute, ParamMap, Router} from "@angular/router";
 import {CategoryService} from "../../service/category.service";
 import {Category} from "../../model/Category";
+import {finalize} from "rxjs";
+import {AngularFireStorage} from "@angular/fire/compat/storage";
 
 @Component({
   selector: 'app-edit-product-be',
@@ -14,7 +16,8 @@ export class EditProductBeComponent implements OnInit {
   form: FormGroup = new FormGroup({
     name: new FormControl(''),
     price : new FormControl(''),
-    categoryId: new FormControl('')
+    categoryId: new FormControl(''),
+    image: new FormControl('')
   })
 
   obj: any;
@@ -25,7 +28,7 @@ export class EditProductBeComponent implements OnInit {
               private activatedRoute: ActivatedRoute,
               // ActivatedRoute lấy dữ liệu trên đường dẫn) { }
               private categoryService: CategoryService,
-              private router: Router){
+              private router: Router,private storage: AngularFireStorage){
     this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
       // @ts-ignore
       this.id = +paramMap.get('id');
@@ -45,7 +48,9 @@ export class EditProductBeComponent implements OnInit {
         name: new FormControl(data.name),
         price: new FormControl(data.price),
         categoryId: new FormControl(data.category.id),
-      });
+        image: new FormControl(data.image)
+      })
+      this.fb = data.image
     });
 
   }
@@ -55,14 +60,46 @@ export class EditProductBeComponent implements OnInit {
       price: this.form.value.price,
       category: {
         id:this.form.value.categoryId
-      }
+      },
+      image: this.fb
     };
+    console.log(this.obj)
     this.productBeService.edit(id, this.obj).subscribe(() => {
       this.router.navigate(['/product-be']);
-      alert('Cập nhật thành công');
     }, error => {
       console.log(error);
     });
+  }
+
+  ////uploadfise
+  title = "cloudsSorage";
+  selectedFile: any;
+  fb:any
+  downloadURL: any;
+  onFileSelected(event: any) {
+    var n = Date.now();
+    const file = event.target.files[0];
+    const filePath = `RoomsImages/${n}`;
+    const fileRef = this.storage.ref(filePath);
+    const task = this.storage.upload(`RoomsImages/${n}`, file);
+    task
+      .snapshotChanges()
+      .pipe(
+        finalize(() => {
+          this.downloadURL = fileRef.getDownloadURL();
+          this.downloadURL.subscribe((url: any) => {
+            if (url) {
+              this.fb = url;
+            }
+            console.log(this.fb);
+          });
+        })
+      )
+      .subscribe((url:any) => {
+        if (url) {
+          console.log(url);
+        }
+      });
   }
 
 }

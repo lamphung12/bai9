@@ -12,12 +12,17 @@ import {error} from "@angular/compiler-cli/src/transformers/util";
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-  productForm: FormGroup= new FormGroup({
-    name: new FormControl(''),
-    categoryId : new FormControl(''),
-    from: new FormControl(''),
-    to: new FormControl('')
-  })
+  // productForm: FormGroup= new FormGroup({
+  //   // name: new FormControl(''),
+  //   categoryId : new FormControl(''),
+  //   // from: new FormControl(''),
+  //   // to: new FormControl('')
+  // })
+
+  name:any;
+  from:any;
+  to:any;
+  categoryId:any;
 
   form = new FormGroup({
     name: new FormControl(''),
@@ -48,9 +53,18 @@ export class NavbarComponent implements OnInit {
     })
   }
 
+  // searchByName() {
+  //   const name = this.productForm.value.name;
+  //   this.productBeService.searchByName(name).subscribe((data) => {
+  //     console.log(data)
+  //     this.listProduct=data;
+  //   },error=>{
+  //     console.log(error)
+  //   })
+  // }
   searchByName() {
-    const name = this.productForm.value.name;
-    this.productBeService.searchByName(name).subscribe((data) => {
+
+    this.productBeService.searchByName(this.name).subscribe((data) => {
       console.log(data)
       this.listProduct=data;
     },error=>{
@@ -59,8 +73,8 @@ export class NavbarComponent implements OnInit {
   }
 
   searchByCategoryId() {
-    const id = this.productForm.value.categoryId;
-    this.productBeService.getByCategoryId(id).subscribe(data => {
+    // const id = this.productForm.value.categoryId;
+    this.productBeService.getByCategoryId(this.categoryId).subscribe(data => {
       this.listProduct = data;
       console.log(data);
     });
@@ -96,10 +110,18 @@ export class NavbarComponent implements OnInit {
   //   }
   // }
 
+  // searchByPrice() {
+  //     const from = this.productForm.value.from;
+  //     const to = this.productForm.value.to;
+  //   this.productBeService.getByPriceBetween(from, to).subscribe((data) => {
+  //     console.log(data)
+  //     this.listProduct=data;
+  //   },error=>{
+  //     console.log(error)
+  //   })
+  // }
   searchByPrice() {
-      const from = this.productForm.value.from;
-      const to = this.productForm.value.to;
-    this.productBeService.getByPriceBetween(from, to).subscribe((data) => {
+    this.productBeService.getByPriceBetween(this.from, this.to).subscribe((data) => {
       console.log(data)
       this.listProduct=data;
     },error=>{

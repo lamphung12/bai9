@@ -45,9 +45,37 @@ export class DeleteProductBeComponent implements OnInit {
   delete(id:number){
     this.productBeService.delete(id).subscribe(() => {
       this.router.navigate(['/product-be']);
-      alert('Xoá thành công');
+      // alert('Xoá thành công');
     }, error => {
       console.log(error);
     });
   }
+  // doSave() {
+  //   if (this.dpatForm.invalid) {
+  //     this.dpatForm.markAllAsTouched();
+  //     this.toast.showWarning("Thông báo", "Kiểm tra thông tin đầu vào");
+  //     return;
+  //   }
+  //
+  //   let dataSave = this.dpatForm.value;
+  //
+  //   this.loading = true;
+  //   this.api.post("/department/saveOrUpdate", dataSave).subscribe(data => {
+  //     this.loading = false;
+  //     if (data) {
+  //       if (dataSave["id"]) {
+  //         this.toast.showSuccess('Thông báo', 'Cập nhật thành công thông tin đơn vị');
+  //       } else {
+  //         this.toast.showSuccess('Thông báo', 'Thêm mới đơn vị thành công');
+  //       }
+  //       this.dialogRef.close();
+  //     } else {
+  //       this.toast.showWarning('Thông báo', 'Mã số thuế đã tồn tại trong hệ thống.');
+  //     }
+  //
+  //   }, error => {
+  //     this.loading = false;
+  //     this.toast.showError('Lỗi', 'Không cập nhật được dữ diệu bản ghi.');
+  //   })
+  // }
 }
